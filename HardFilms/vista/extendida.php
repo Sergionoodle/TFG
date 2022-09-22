@@ -363,7 +363,7 @@
 
                         <!--Login-->
                         <li class="nav-item float-right">
-                            <a class="nav-link" href="../controlador/controlador_login.php"><button class="btn-log">Log in</button></a>
+                            <a class="nav-link" href="../controlador/controlador_login2.php?id=<?php echo $datos->getId(); ?>"><button class="btn-log">Log in</button></a>
                         </li>
                     <?php }else{
                         ?>
@@ -444,31 +444,36 @@
         <h1>Comenta Usuario:</h1>
         <p><?php echo $_SESSION['user']?></p>
         <div class="formulario_comentarios">
-            <form name="coment" action="comentario_exito.php" method="post">
-                <textarea class="comentario_txt" name="Comentario" id="comentario_text" cols="77" rows="4"
+            <form name="coment" action="../controlador/comentario_exitoso.php?id=<?php echo $datos->getId();?>" method="post">
+                <textarea class="comentario_txt" name="comentar_area" id="comentario_text" cols="77" rows="4"
                           maxlength="200"></textarea>
                 <span class="help-block">
                     <p id="mensaje_ayuda" class="help-block">Cuerpo del mensaje de alerta</p>
                 </span>
-                <input type="submit" name="comentar" value="Comenta">
+                <input id="btn-comentario" type="submit" name="comentar" value="Comenta">
                 <script>
                     $('#mensaje_ayuda').text('200 carácteres restantes');
                     $('#comentario_text').keydown(function () {
                         var max = 200;
-                        var len = $(this).val().length;
+                        var len = $(this).val().length + 1;
                         if (len >= max) {
                             $('#mensaje_ayuda').text('Has llegado al límite');// Aquí enviamos el mensaje a mostrar
                             $('#mensaje_ayuda').addClass('text-danger');
                             $('#comentario_text').addClass('is-invalid');
                             $('#inputsubmit').addClass('disabled');
+                            $('#btn-comentario').attr("disabled", "disabled");
                         }
                         else {
+                            console.log(len)
                             var ch = max - len;
                             $('#mensaje_ayuda').text(ch + ' carácteres restantes');
                             $('#mensaje_ayuda').removeClass('text-danger');
                             $('#comentario_text').removeClass('is-invalid');
                             $('#inputsubmit').removeClass('disabled');
+                            $('#btn-comentario').removeAttr("disabled");
+
                         }
+
                     });
                 </script>
             </form>
@@ -476,66 +481,29 @@
         <?php } ?>
     </div>
 
+    <?php
+    $i = 1;
+    foreach ($coment as $com){  ?>
     <div>
         <div class="d-flex comentarios_texto">
 
-            <img src="https://i.pinimg.com/236x/35/f6/71/35f6716adc65383508eca7cfda5b5594.jpg" alt="John Doe"
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1200px-User_icon_2.svg.png" alt="John Doe"
                  class="me-3 rounded-circle" style="width: 100px; height: 100px; border: black 1px solid;" />
 
             <div>
                 <h5 class="fw-bold">
-                    La Roca johnson
-                    <small class="text-muted">Posteado el dia 30/01/2022</small>
+                    <?php echo $com->getIdUsuario()->getUser(); ?>
+                    <small class="text-muted" style="font-size: small">Comentario nº<?php echo $i++; ?> </small>
                 </h5>
                 <p>
-                    Wow esta página es increíblemente increíble, menudo témalo tiene cuando le das al botón de dar
-                    ritmo, 10/10 si fuera un trabajo de clase le pondría eso, estoy segurísimo de ello, le contrataré
-                    para que me monte una.
+                    <?php echo $com->getComentario(); ?>
                 </p>
             </div>
             <!-- Media body -->
         </div>
     </div>
-    <div>
-        <div class="d-flex comentarios_texto">
+    <?php } ?>
 
-            <img src="https://i.pinimg.com/236x/35/f6/71/35f6716adc65383508eca7cfda5b5594.jpg" alt="John Doe"
-                 class="me-3 rounded-circle" style="width: 100px; height: 100px; border: black 1px solid;" />
-
-            <div>
-                <h5 class="fw-bold">
-                    La Roca johnson
-                    <small class="text-muted">Posteado el dia 30/01/2022</small>
-                </h5>
-                <p>
-                    Wow esta página es increíblemente increíble, menudo témalo tiene cuando le das al botón de dar
-                    ritmo, 10/10 si fuera un trabajo de clase le pondría eso, estoy segurísimo de ello, le contrataré
-                    para que me monte una.
-                </p>
-            </div>
-            <!-- Media body -->
-        </div>
-    </div>
-    <div>
-        <div class="d-flex comentarios_texto">
-
-            <img src="https://i.pinimg.com/236x/35/f6/71/35f6716adc65383508eca7cfda5b5594.jpg" alt="John Doe"
-                 class="me-3 rounded-circle" style="width: 100px; height: 100px; border: black 1px solid;" />
-
-            <div>
-                <h5 class="fw-bold">
-                    La Roca johnson
-                    <small class="text-muted">Posteado el dia 30/01/2022</small>
-                </h5>
-                <p>
-                    Wow esta página es increíblemente increíble, menudo témalo tiene cuando le das al botón de dar
-                    ritmo, 10/10 si fuera un trabajo de clase le pondría eso, estoy segurísimo de ello, le contrataré
-                    para que me monte una.
-                </p>
-            </div>
-            <!-- Media body -->
-        </div>
-    </div>
     <br>
 
 
