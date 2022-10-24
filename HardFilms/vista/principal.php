@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
+<?php     
+    error_reporting(0);
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -263,19 +266,23 @@
             <p class="p_top">HardFilms tu pagina de confianza, registrate QUE ES GRATIS!!</p>
             </div>
         </div>
-        <?php //foreach ($peliculas as $peli){
-            for($i = 0; $i < count($peliculas); $i++){?>
+        <?php
+        for($i = 0; $i < count($slider); $i++){
+
+        ?>
         <!--IMG A DUPLICAR-->
         <div class="carousel-item">
             <center>
-                <img class="img_carusel" src="../<?php echo $peliculas[$i]->getIdMultimedia()->getSlider()?>"
+                <img class="img_carusel" src="../<?php echo $slider[$i]->getIdPelicula()->getIdMultimedia()->getSlider(); ?>"
                       alt="Second slide">
                 <div class="carousel-caption d-none d-md-block">
-                    <h3 class="top_titulo"><?php echo 'TOP '.($i+1)." - ".$peliculas[$i]->getTitulo();?></h3>
+                    <h3 class="top_titulo"><?php echo 'TOP '.($i+1)." - ".$slider[$i]->getIdPelicula()->getTitulo();?></h3>
                 </div>
             </center>
         </div>
-       <?php } ?>
+       <?php
+        }
+        ?>
     </div>
     <a class="carousel-control-prev" href="#carouselFadeExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -292,8 +299,12 @@
         van añadiendo, para ello regístrate en el botón de ahí arriba y disfruta de comentar y puntuar!! HardFilms
         es una página de reviews donde podrás dar tu opinión, ver la opinión del resto y puntuar!!</p>
     <p>
+    <p>
+        ENTRA EN LA FICHA PARA VER QUE PUNTUACION LE HAN DADO LOS USUARIOS!!
+    </p>
         <!-- Bienvenida usuario en <b>-->
-        <?php if($_SESSION['log'] == true){
+        <?php        
+        if($_SESSION['log'] == true){
             echo "<span class='user_p'>Bienvenido/a ".$_SESSION['user'].".</span> Logeado con el correo ".$_SESSION['mail'];
         } ?>
     </p>
@@ -315,7 +326,6 @@
         <select name="ordenar" id="ordenador">
             <option value="unsorted">Por defecto</option>
             <option value="nombre">Por Titulo</option>
-            <option value="mejor">Mejor Puntuacion</option>
         </select>
         <button class="btn-orden" type="submit">Ordenar</button>
     </form>
@@ -336,6 +346,7 @@
 <!--Carta de la pelicula-->
 <div class="card-deck col-md-12" id="result">
     <?php
+
     foreach ($lista as $elemento) {
 
     ?>
@@ -348,15 +359,6 @@
             <center>
                 <hr class="hr_pelis">
             </center>
-            <p><b>Puntuacion:</b> <?php
-                if($elemento->getPuntuacion() <= 5){
-                    echo $elemento->getPuntuacion().'<img class="estrella" src="../img/estrellaroja.png">';
-                }else{
-                   echo $elemento->getPuntuacion().'<img class="estrella" src="../img/estrella.png">';
-
-                }
-
-                ?></p>
             <p><b>Sinopsis:</b></p>
             <div class="card-body module line-clamp">
                 <p><?php echo $elemento->getDescripcion(); ?></p>
@@ -366,6 +368,7 @@
     <?php } ?>
 
 </div>
+
 <script>
 document.addEventListener('keyup',e=>{
 

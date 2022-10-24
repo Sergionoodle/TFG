@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
+<?php
+    error_reporting(0);
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -285,6 +288,20 @@
         .logbien{
             width: 80px;
         }
+
+        .puntuaciones {
+            text-align: center;
+            color: black;
+            margin-top: 5px;
+            margin-bottom: 50px;
+        }
+
+        #numeros {
+            width: 50px;
+            height: 50px;
+            font-size: x-large;
+            
+        }
     </style>
 
 
@@ -304,6 +321,8 @@
                 $(".informacion").css("color", "white")
                 $(".comentarios").css("color", "white")
                 $(".comentarios_texto").css("color", "white")
+                $(".puntuaciones").css("color","white")
+                $(".point").css("color","white")
 
                 //Cuando esta cambiado le pone el color de nuevo si pulsas el Light mode
             } else {
@@ -316,6 +335,9 @@
                 $(".informacion").css("color", "#343a40")
                 $(".comentarios").css("color", "black")
                 $(".comentarios_texto").css("color", "black")
+                $(".puntuaciones").css("color","black")
+                $(".point").css("color","black")
+
 
 
 
@@ -377,17 +399,26 @@
 
     <!--ESTRELLAS A MULTIPLICAR-->
     <div class="puntuacion">
+        <br>
         <?php
-        for($i = 0; $i < $datos->getPuntuacion(); $i++) {
-            if($datos->getPuntuacion() <= 5){
-                echo '<img class="estrella" src="../img/estrellaroja.png">';
-            }else{
-                echo '<img class="estrella" src="../img/estrella.png">';
-
+            for ($i = 0; $i < count($puntos); $i++) {
+                if($puntos[$i]->getPuntos() == 0){
+                    echo "<h1>Sin Puntuar</h1>";
+                }else{
+                    $puntuacion = $puntos[$i]->getPuntos();
+                    for($i = 0; $i < $puntuacion; $i++){
+                        if($puntuacion <= 5){
+                            echo '<img class="estrella" src="../img/estrellaroja.png">';
+                        }else {
+                            echo '<img class="estrella" src="../img/estrella.png">';
+                        }
+                    }
+                }
             }
-        }
+
         ?>
     </div>
+  
     <!--IFRAME A MULTIPLICAR-->
     <?php echo $datos->getIdMultimedia()->getTrailer();?>
 
@@ -395,6 +426,7 @@
         <div class="a">
             <img class="imagen_info" src="../<?php echo $datos->getIdMultimedia()->getImagen();?>" alt="img">
         </div>
+       
         <h3><b>Titulo: </b><?php echo $datos->getTitulo(); ?></h3>
         <h3><b>Año:</b> <?php echo $datos->getAnyo(); ?></h3>
         <h3><b>Director:</b> <?php echo $datos->getIdDirector()->getNombre()?> <?php echo $datos->getIdDirector()->getApellidos()?></h3>
@@ -433,12 +465,37 @@
         </div>
     </div>
 
+    <div class="puntuaciones">
+
+        <?php if($_SESSION['log'] != true){
+            echo '<h1>Para poder puntuar y comentar logeate <img class="logbien" src="https://i.pinimg.com/originals/3b/ef/73/3bef738000dcd57710828a4218c046ea.gif"></h1>';
+            
+            ?>
+            <a href="../controlador/controlador_login2.php?id=<?php echo $datos->getId(); ?>"><input class="mt-2" type="submit" value="Login"></a>
+        <?php 
+
+        }else{
+        
+        ?>
+        
+        <h1>¿Que te ha parecido esta pelicula <?php echo $_SESSION['user']; ?>?</h1>
+        
+        <p>Puntua esta pelicula del 0 al 10 y da tu opinion</p>
+        
+        <form name="nota" action="../controlador/puntuacion_exitosa.php?id=<?php echo $datos->getId();?>" method="post">
+            <input type="number" name="puntosNota" id="numeros" min="0" max="10">
+            <br>
+            <input class="mt-2" id="btn-puntuacion" type="submit" name="darNota" value="Puntua">
+        </form>
+    
+    </div>
+    <?php }?>
 
     <div class="comentarios">
         <?php
 
         if($_SESSION['log'] != true){
-            echo '<h1>Para poder comentar logeate <img class="logbien" src="https://i.pinimg.com/originals/3b/ef/73/3bef738000dcd57710828a4218c046ea.gif"></h1>';
+            //echo '<h1>Para poder comentar logeate <img class="logbien" src="https://i.pinimg.com/originals/3b/ef/73/3bef738000dcd57710828a4218c046ea.gif"></h1>';
         }else{
         ?>
         <h1>Comenta Usuario:</h1>
@@ -504,6 +561,7 @@
     </div>
     <?php } ?>
 
+   
     <br>
 
 
@@ -581,9 +639,6 @@
             }
         }
     </script>
-
-
-
 
 </body>
 

@@ -6,6 +6,8 @@ include_once "../entidades/multimedia.php";
 include_once "../entidades/genero.php";
 include_once "../entidades/director.php";
 include_once "../entidades/actores.php";
+include_once "../entidades/usuarios.php";
+
 
 class modelo_pagina_extendida
 {
