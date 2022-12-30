@@ -30,7 +30,7 @@ class modelo_pagina_principal
         $return = array();
 
         while ($resultado = $query->fetch_assoc()){
-            $return[] = new principal($resultado['id'],$resultado['titulo'],$resultado['descripcion'],$resultado['puntuacion'],$this->get_multimedia($resultado['id_multimedia']),$this->get_genero($resultado['id_genero']),$this->get_director($resultado['id_director']), $resultado['anyo'], $this->getActores($resultado['id']));
+            $return[] = new principal($resultado['id'],$resultado['titulo'],$resultado['descripcion'],$this->get_multimedia($resultado['id_multimedia']),$this->get_genero($resultado['id_genero']),$this->get_director($resultado['id_director']), $resultado['anyo'], $this->getActores($resultado['id']));
         }
 
         return $return;
@@ -43,40 +43,11 @@ class modelo_pagina_principal
         $this->dbo->close();
         $return = array();
         while ($resultado = $query->fetch_assoc()){
-            $return[] = new principal($resultado['id'],$resultado['titulo'],$resultado['descripcion'],$resultado['puntuacion'],$this->get_multimedia($resultado['id_multimedia']),$this->get_genero($resultado['id_genero']),$this->get_director($resultado['id_director']), $resultado['anyo'], $this->getActores($resultado['id']));
+            $return[] = new principal($resultado['id'],$resultado['titulo'],$resultado['descripcion'],$this->get_multimedia($resultado['id_multimedia']),$this->get_genero($resultado['id_genero']),$this->get_director($resultado['id_director']), $resultado['anyo'], $this->getActores($resultado['id']));
         }
         return $return;
     }
 
-    public function listado_por_puntos(){
-        $sql = "SELECT * FROM principal ORDER BY puntuacion DESC;";
-        $this->dbo->default();
-        $query = $this->dbo->query($sql);
-        $this->dbo->close();
-        $return = array();
-        while ($resultado = $query->fetch_assoc()){
-            $return[] = new principal($resultado['id'],$resultado['titulo'],$resultado['descripcion'],$resultado['puntuacion'],$this->get_multimedia($resultado['id_multimedia']),$this->get_genero($resultado['id_genero']),$this->get_director($resultado['id_director']), $resultado['anyo'], $this->getActores($resultado['id']));
-
-        }
-
-        return $return;
-
-    }
-
-
-    public function top_5(){
-        $sql = "SELECT * FROM principal ORDER BY puntuacion DESC LIMIT 5;;";
-        $this->dbo->default();
-        $query = $this->dbo->query($sql);
-        $this->dbo->close();
-        $return = array();
-
-        while ($resultado = $query->fetch_assoc()){
-            $return[] = new principal($resultado['id'],$resultado['titulo'],$resultado['descripcion'],$resultado['puntuacion'],$this->get_multimedia($resultado['id_multimedia']),$this->get_genero($resultado['id_genero']),$this->get_director($resultado['id_director']), $resultado['anyo'], $this->getActores($resultado['id']));
-        }
-
-        return $return;
-    }
 
     public function get_multimedia($id){
         $sql = "SELECT * FROM multimedia WHERE id=".$id.";";

@@ -302,6 +302,10 @@
             font-size: x-large;
             
         }
+
+        .img_eliminar{
+            width: 30px;
+        }
     </style>
 
 
@@ -555,6 +559,12 @@
                 <p>
                     <?php echo $com->getComentario(); ?>
                 </p>
+                <?php if($_SESSION['user'] == "Admin1"){ ?>
+                    <div class=" d-flex justify-content-between align-items-center">
+                        &nbsp;
+                        <a href="../controlador/eliminar_comentario.php?id=<?php echo $com->getId() ?>&id_peli=<?php echo $com->getIdPelicula()->getId() ?>" class="btn bg-danger btn-sm"><img class="img_eliminar" src="https://cdn-icons-png.flaticon.com/512/1017/1017530.png" alt=""></a>
+                    </div>
+                <?php } ?>
             </div>
             <!-- Media body -->
         </div>

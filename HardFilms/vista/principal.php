@@ -96,21 +96,27 @@
 
         }
 
-        .div_img:hover .card-img-top{
+        .card:hover .card{
             -webkit-transform:scale(1.3);transform:scale(1.3);
 
+        }
+
+        .a_estilo:link, .a_estilo:visited, .a_estilo:active{
+            text-decoration: none;
+            color: black;
         }
 
         .user_p{
             font-weight: bold;
             font-size: x-large;
         }
-        .div_img:hover{
+        .card:hover{
             overflow:hidden;
 
         }
 
-        .card-img-top:hover{
+
+        .card:hover{
             filter: opacity(.5);
         }
 
@@ -194,7 +200,7 @@
                 $(".logo").replaceWith('<img class="logo" src="../img/hardfilmsred.png" width="100px">')
                 $(".card").css("background-color", "rgba(255, 255, 255, 0.452)")
                 $(".carousel").css("background-color", "rgba(255, 255, 255, 0.452)")
-
+                $(".a_estilo").css("color","white")
 
 //Cuando esta cambiado le pone el color de nuevo si pulsas el Light mode
             } else {
@@ -206,6 +212,7 @@
                 $(".logo").replaceWith('<img class="logo" src="../img/hardfilms white.png" width="100px">')
                 $(".card").css("background-color", "#33333328")
                 $(".carousel").css("background-color", " rgba(70, 76, 77, 0.445)")
+                $(".a_estilo").css("color","black")
 
 
             }
@@ -351,8 +358,10 @@
 
     ?>
     <div data-aos="zoom-out-up" id="carta" class="card col-md-2">
+        <a class="a_estilo" href="../controlador/controlador_extendido.php?id=<?php echo $elemento->getId(); ?>">
+
         <div class="div_img">
-            <a href="../controlador/controlador_extendido.php?id=<?php echo $elemento->getId(); ?>"><img class="card-img-top" src="../<?php echo $elemento->getIdMultimedia()->getImagen() ?>" alt="Card image cap"></a>
+            <img class="card-img-top" src="../<?php echo $elemento->getIdMultimedia()->getImagen() ?>" alt="Card image cap">
         </div>
         <div class="div_contenido">
             <b>Titulo: </b><p class="titulo"><?php echo $elemento->getTitulo() ?></p>
@@ -364,7 +373,9 @@
                 <p><?php echo $elemento->getDescripcion(); ?></p>
             </div>
         </div>
+        </a>
     </div>
+
     <?php } ?>
 
 </div>
@@ -378,9 +389,10 @@ document.addEventListener('keyup',e=>{
 
        for(let i = 0; i < cartas.length; i++){
 
-           console.log(cartas[i].children[1].children[1].innerHTML)
+           //console.log(cartas[i].children[1].children[1].innerHTML)
 
-           let comparacion = cartas[i].children[1].children[1].innerHTML.toLowerCase()
+           console.log(cartas[i].children[0].children[1].children[1].innerHTML)
+           let comparacion = cartas[i].children[0].children[1].children[1].innerHTML.toLowerCase()
 
            if(!comparacion.includes(e.target.value.toLowerCase())){
                cartas[i].classList.add('filtro')

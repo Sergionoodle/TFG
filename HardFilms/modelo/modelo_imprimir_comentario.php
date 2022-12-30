@@ -56,7 +56,7 @@ class modelo_imprimir_comentario
         $query = $this->dbo->query($sql);
         $this->dbo->close();
         $resultado = $query->fetch_assoc();
-        $return = new principal($resultado['id'],$resultado['titulo'],$resultado['descripcion'],$resultado['puntuacion'],$this->get_multimedia($resultado['id_multimedia']),$this->get_genero($resultado['id_genero']),$this->get_director($resultado['id_director']), $resultado['anyo'], $this->getActores($resultado['id']));
+        $return = new principal($resultado['id'],$resultado['titulo'],$resultado['descripcion'],$this->get_multimedia($resultado['id_multimedia']),$this->get_genero($resultado['id_genero']),$this->get_director($resultado['id_director']), $resultado['anyo'], $this->getActores($resultado['id']));
         return $return;
     }
 

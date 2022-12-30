@@ -13,7 +13,6 @@ class principal
     private int $id;
     private string $titulo;
     private string $descripcion;
-    private int $puntuacion;
     private multimedia $id_multimedia;
     private genero $id_genero;
     private director $id_director;
@@ -24,19 +23,17 @@ class principal
      * @param int $id
      * @param string $titulo
      * @param string $descripcion
-     * @param int $puntuacion
      * @param multimedia $id_multimedia
      * @param genero $id_genero
      * @param director $id_director
      * @param int $anyo
      * @param array $actores
      */
-    public function __construct(int $id, string $titulo, string $descripcion, int $puntuacion, multimedia $id_multimedia, genero $id_genero, director $id_director, int $anyo, array $actores)
+    public function __construct(int $id, string $titulo, string $descripcion, multimedia $id_multimedia, genero $id_genero, director $id_director, int $anyo, array $actores)
     {
         $this->id = $id;
         $this->titulo = $titulo;
         $this->descripcion = $descripcion;
-        $this->puntuacion = $puntuacion;
         $this->id_multimedia = $id_multimedia;
         $this->id_genero = $id_genero;
         $this->id_director = $id_director;
@@ -66,14 +63,6 @@ class principal
     public function getDescripcion(): string
     {
         return $this->descripcion;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPuntuacion(): int
-    {
-        return $this->puntuacion;
     }
 
     /**
@@ -115,6 +104,7 @@ class principal
     {
         return $this->actores;
     }
+
 
 
 
