@@ -6,23 +6,33 @@ $modelo = new modelo_login();
 
 session_start();
 
+$usuarios = $modelo->listado_usuarios();
+
 if(isset($_POST['user']) && isset($_POST['password'])){
 
-    $datos_user = $modelo->usuario_log($_POST['user']);
+    foreach ($usuarios as $usuari) {
 
-    $pass_verif = password_verify($_POST['password'],$datos_user->getPassword());
+        if($usuari->getUser() == $_POST['user']) {
 
-    if($pass_verif == true){
+            $datos_user = $modelo->usuario_log($_POST['user']);
 
-        $_SESSION['log'] = true;
+            $pass_verif = password_verify($_POST['password'], $datos_user->getPassword());
 
-        $_SESSION['id_user'] = $datos_user->getId();
-        $_SESSION['user'] = $datos_user->getUser();
-        $_SESSION['mail'] = $datos_user->getMail();
+            if ($pass_verif == true) {
 
-        header("Location: ../controlador/controlador_principal.php");
-    }else{
-        echo "<script>alert('Error al iniciar sesion, la contraseña no es correcta')</script>";
+                $_SESSION['log'] = true;
+
+                $_SESSION['id_user'] = $datos_user->getId();
+                $_SESSION['user'] = $datos_user->getUser();
+                $_SESSION['mail'] = $datos_user->getMail();
+
+                header("Location: ../controlador/controlador_principal.php");
+            } else {
+                echo "<script>alert('Error al iniciar sesion, la contraseña no es correcta')</script>";
+            }
+        }else{
+            header("Location: ../controlador/controlador_principal.php");
+        }
     }
 }
 require_once "../vista/formulario_log.php";

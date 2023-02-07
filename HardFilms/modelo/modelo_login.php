@@ -23,4 +23,15 @@ class modelo_login
         return $return;
     }
 
+    public function listado_usuarios(){
+        $sql = "SELECT * FROM usuarios;";
+        $this->dbo->default();
+        $query = $this->dbo->query($sql);
+        $this->dbo->close();
+        $return = array();
+        while ($resultado = $query->fetch_assoc()){
+            $return[] = new usuarios($resultado['id'],$resultado['user'],$resultado['mail'],$resultado['password']);
+        }
+        return $return;
+    }
 }

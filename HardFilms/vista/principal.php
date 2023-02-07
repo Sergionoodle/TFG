@@ -302,7 +302,7 @@
 </div>
 
 <div class="div_bienvenida">
-    <p>! Bienvenido a esta maravillosa página donde podrás dar a conocer tu opinión de todas las películas que se
+    <p>¡ Bienvenido a esta maravillosa página donde podrás dar a conocer tu opinión de todas las películas que se
         van añadiendo, para ello regístrate en el botón de ahí arriba y disfruta de comentar y puntuar!! HardFilms
         es una página de reviews donde podrás dar tu opinión, ver la opinión del resto y puntuar!!</p>
     <p>
