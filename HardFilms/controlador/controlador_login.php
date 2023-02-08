@@ -6,33 +6,28 @@ $modelo = new modelo_login();
 
 session_start();
 
-$usuarios = $modelo->listado_usuarios();
-
 if(isset($_POST['user']) && isset($_POST['password'])){
 
-    foreach ($usuarios as $usuari) {
+    $usuarios = $modelo->has_user($_POST['user']);
 
-        if($usuari->getUser() == $_POST['user']) {
+    if($usuarios){
+        $datos_user = $modelo->usuario_log($_POST['user']);
 
-            $datos_user = $modelo->usuario_log($_POST['user']);
+        $pass_verif = password_verify($_POST['password'], $datos_user->getPassword());
 
-            $pass_verif = password_verify($_POST['password'], $datos_user->getPassword());
-
-            if ($pass_verif == true) {
+        if ($pass_verif == true) {
 
                 $_SESSION['log'] = true;
 
                 $_SESSION['id_user'] = $datos_user->getId();
                 $_SESSION['user'] = $datos_user->getUser();
                 $_SESSION['mail'] = $datos_user->getMail();
-
                 header("Location: ../controlador/controlador_principal.php");
-            } else {
+        } else {
                 echo "<script>alert('Error al iniciar sesion, la contraseña no es correcta')</script>";
-            }
-        }else{
-            header("Location: ../controlador/controlador_principal.php");
         }
+    }else{
+        echo "<script>alert('Usuario no encontrado')</script>";
     }
 }
 require_once "../vista/formulario_log.php";

@@ -23,15 +23,18 @@ class modelo_login
         return $return;
     }
 
-    public function listado_usuarios(){
-        $sql = "SELECT * FROM usuarios;";
+    public function has_user($param)
+    {
+        $sql = "SELECT user FROM usuarios where user = '".$param."';";
         $this->dbo->default();
         $query = $this->dbo->query($sql);
         $this->dbo->close();
-        $return = array();
-        while ($resultado = $query->fetch_assoc()){
-            $return[] = new usuarios($resultado['id'],$resultado['user'],$resultado['mail'],$resultado['password']);
+        $resultado = $query->fetch_assoc();
+        if($resultado == NULL){
+            $r = false;
+        }else{
+            $r = true;
         }
-        return $return;
+        return $r;
     }
 }

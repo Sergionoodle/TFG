@@ -20,7 +20,7 @@ class modelo_puntuaciones
 
     public function top_cinco_usuarios()
     {
-        $sql = "SELECT id, id_usuario, id_pelicula, ROUND(AVG(puntos),0) as puntos FROM `puntuacion` GROUP BY puntos DESC LIMIT 5;";
+        $sql = "SELECT id, id_usuario, id_pelicula, ROUND(AVG(puntos),0) as puntos FROM `puntuacion` GROUP BY id_pelicula ORDER BY puntos DESC LIMIT 5;";
         $this->dbo->default();
         $query = $this->dbo->query($sql);
         $this->dbo->close();
